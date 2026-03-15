@@ -3,109 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق السيرة الذاتية الاحترافي</title>
-    <meta name="description" content="قم بإنشاء سيرتك الذاتية الاحترافية بسهولة وسرعة">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <title data-i18n="page_title">تطبيق السيرة الذاتية الاحترافي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="app-container">
-        <!-- قسم المحرر وإدخال البيانات -->
+        <!-- Sidebar Editor -->
         <aside class="editor-section hidden-print">
             <div class="editor-header">
-                <h1><i class="fa-solid fa-file-signature"></i> صانع السيرة الذاتية</h1>
-                <p>قم بتحديث بياناتك لتشاهد التغييرات فوراً!</p>
+                <div>
+                    <h1 data-i18n="app_title"><i class="fa-solid fa-file-signature"></i> صانع السيرة الذاتية</h1>
+                    <p data-i18n="app_desc">قم بتحديث بياناتك لتشاهد التغييرات فوراً!</p>
+                </div>
+                <button id="lang-toggle" class="btn-icon">
+                    <i class="fa-solid fa-globe"></i> <span id="lang-text" data-i18n="lang_text">EN</span>
+                </button>
             </div>
             
             <form id="cv-form">
-                <!-- المعلومات الشخصية -->
+                <!-- Personal Info -->
                 <div class="form-section">
-                    <h2><i class="fa-solid fa-user"></i> المعلومات الشخصية</h2>
+                    <h2 data-i18n="personal_info"><i class="fa-solid fa-user"></i> المعلومات الشخصية</h2>
                     <div class="input-group">
-                        <label for="fullName">الاسم الكامل</label>
-                        <input type="text" id="fullName" placeholder="مثال: أحمد عبد الرحمن" data-target="cv-name">
+                        <label for="fullName" data-i18n="full_name">الاسم الكامل</label>
+                        <input type="text" id="fullName" data-i18n-placeholder="name_placeholder" data-target="cv-name">
                     </div>
                     <div class="input-group">
-                        <label for="jobTitle">المسمى الوظيفي</label>
-                        <input type="text" id="jobTitle" placeholder="مثال: مهندس برمجيات أول" data-target="cv-title">
+                        <label for="jobTitle" data-i18n="job_title">المسمى الوظيفي</label>
+                        <input type="text" id="jobTitle" data-i18n-placeholder="title_placeholder" data-target="cv-title">
                     </div>
                     <div class="input-group-row">
                         <div class="input-group">
-                            <label for="email">البريد الإلكتروني</label>
+                            <label for="email" data-i18n="email">البريد الإلكتروني</label>
                             <input type="email" id="email" placeholder="example@email.com" data-target="cv-email">
                         </div>
                         <div class="input-group">
-                            <label for="phone">رقم الهاتف</label>
+                            <label for="phone" data-i18n="phone">رقم الهاتف</label>
                             <input type="tel" id="phone" placeholder="05xxxxxxxx" data-target="cv-phone">
                         </div>
                     </div>
                     <div class="input-group">
-                        <label for="address">العنوان</label>
-                        <input type="text" id="address" placeholder="المدينة، الدولة" data-target="cv-address">
+                        <label for="address" data-i18n="address">العنوان</label>
+                        <input type="text" id="address" data-i18n-placeholder="address_placeholder" data-target="cv-address">
                     </div>
                     <div class="input-group">
-                        <label for="summary">نبذة شخصية</label>
-                        <textarea id="summary" rows="4" placeholder="اكتب نبذة مختصرة عنك وعن أهم مهاراتك العملية والهدف المهني..." data-target="cv-summary"></textarea>
+                        <label for="summary" data-i18n="summary_label">نبذة شخصية</label>
+                        <textarea id="summary" rows="4" data-i18n-placeholder="summary_placeholder" data-target="cv-summary"></textarea>
                     </div>
                 </div>
 
-                <!-- الخبرات العملية -->
+                <!-- Experience -->
                 <div class="form-section">
-                    <h2><i class="fa-solid fa-briefcase"></i> الخبرات العملية</h2>
+                    <h2 data-i18n="experience"><i class="fa-solid fa-briefcase"></i> الخبرات العملية</h2>
                     <div id="experience-container"></div>
                     <button type="button" class="btn-add" onclick="addExperience()">
-                        <i class="fa-solid fa-plus"></i> إضافة خبرة جديدة
+                        <i class="fa-solid fa-plus"></i> <span data-i18n="add_experience">إضافة خبرة جديدة</span>
                     </button>
                 </div>
 
-                <!-- التعليم الأكاديمي -->
+                <!-- Education -->
                 <div class="form-section">
-                    <h2><i class="fa-solid fa-graduation-cap"></i> التعليم</h2>
+                    <h2 data-i18n="education"><i class="fa-solid fa-graduation-cap"></i> التعليم</h2>
                     <div id="education-container"></div>
                     <button type="button" class="btn-add" onclick="addEducation()">
-                        <i class="fa-solid fa-plus"></i> إضافة تعليم جديد
+                        <i class="fa-solid fa-plus"></i> <span data-i18n="add_education">إضافة تعليم جديد</span>
                     </button>
                 </div>
 
-                <!-- المهارات -->
+                <!-- Skills -->
                 <div class="form-section">
-                    <h2><i class="fa-solid fa-star"></i> المهارات</h2>
+                    <h2 data-i18n="skills"><i class="fa-solid fa-star"></i> المهارات</h2>
                     <div class="input-group">
-                        <label for="skills">ادخل مهاراتك مفصولة بفاصلة (,)</label>
-                        <input type="text" id="skills" placeholder="تطوير الويب، إدارة المشاريع، حل المشكلات..." oninput="updateSkills(this.value)">
+                        <label for="skills" data-i18n="skills_label">ادخل مهاراتك مفصولة بفاصلة</label>
+                        <input type="text" id="skills" data-i18n-placeholder="skills_placeholder" oninput="updateSkills(this.value)">
                     </div>
                 </div>
             </form>
 
             <div class="editor-actions">
                 <button class="btn-primary" onclick="window.print()">
-                    <i class="fa-solid fa-print"></i> حفظ بصيغة PDF
+                    <span data-i18n="print_btn"><i class="fa-solid fa-print"></i> حفظ بصيغة PDF</span>
                 </button>
             </div>
         </aside>
 
-        <!-- قسم معاينة السيرة الذاتية (A4) -->
+        <!-- Preview Section -->
         <main class="preview-section">
             <div class="cv-page" id="cv-page">
                 <header class="cv-header">
                     <div class="cv-header-content">
-                        <h1 id="cv-name" class="empty-text">الاسم الكامل</h1>
-                        <h2 id="cv-title" class="empty-text">المسمى الوظيفي</h2>
-                        <p id="cv-summary" class="empty-text">نبذة شخصية عنك تبرز أهم مهاراتك وخبراتك المهنية والهدف الذي تسعى لتحقيقه.</p>
+                        <h1 id="cv-name" class="empty-text" data-i18n="name_placeholder">الاسم الكامل</h1>
+                        <h2 id="cv-title" class="empty-text" data-i18n="title_placeholder">المسمى الوظيفي</h2>
+                        <p id="cv-summary" class="empty-text" data-i18n="summary_placeholder_text">نبذة شخصية عنك.</p>
                     </div>
                     <div class="cv-contact">
                         <div>
                             <i class="fa-solid fa-envelope"></i>
-                            <span id="cv-email">البريد الإلكتروني</span>
+                            <span id="cv-email" data-i18n="email_val">البريد الإلكتروني</span>
                         </div>
                         <div>
                             <i class="fa-solid fa-phone"></i>
-                            <span id="cv-phone">رقم الهاتف</span>
+                            <span id="cv-phone" data-i18n="phone_val">رقم الهاتف</span>
                         </div>
                         <div>
                             <i class="fa-solid fa-location-dot"></i>
-                            <span id="cv-address">العنوان</span>
+                            <span id="cv-address" data-i18n="address_val">العنوان</span>
                         </div>
                     </div>
                 </header>
@@ -113,25 +117,25 @@
                 <div class="cv-body">
                     <div class="cv-main">
                         <section class="cv-section">
-                            <h3 class="cv-section-title"><i class="fa-solid fa-briefcase"></i> الخبرات العملية</h3>
+                            <h3 class="cv-section-title" data-i18n="experience"><i class="fa-solid fa-briefcase"></i> الخبرات العملية</h3>
                             <div class="cv-items" id="cv-experience-list">
-                                <div class="placeholder-text">أضف خبراتك العملية من القائمة الجانبية...</div>
+                                <div class="placeholder-text" data-i18n="exp_placeholder">أضف خبراتك العملية...</div>
                             </div>
                         </section>
 
                         <section class="cv-section">
-                            <h3 class="cv-section-title"><i class="fa-solid fa-graduation-cap"></i> التعليم</h3>
+                            <h3 class="cv-section-title" data-i18n="education"><i class="fa-solid fa-graduation-cap"></i> التعليم</h3>
                             <div class="cv-items" id="cv-education-list">
-                                <div class="placeholder-text">أضف مؤهلاتك العلمية من القائمة الجانبية...</div>
+                                <div class="placeholder-text" data-i18n="edu_placeholder">أضف مؤهلاتك العلمية...</div>
                             </div>
                         </section>
                     </div>
 
-                    <div class="cv-sidebar">
+                    <div class="cv-sidebar-inner">
                         <section class="cv-section">
-                            <h3 class="cv-section-title"><i class="fa-solid fa-star"></i> المهارات</h3>
+                            <h3 class="cv-section-title" data-i18n="skills"><i class="fa-solid fa-star"></i> المهارات</h3>
                             <div class="cv-skills" id="cv-skills-list">
-                                <div class="placeholder-text">أضف مهاراتك...</div>
+                                <div class="placeholder-text" data-i18n="skills_empty">أضف مهاراتك...</div>
                             </div>
                         </section>
                     </div>
@@ -140,38 +144,36 @@
         </main>
     </div>
     
-    <!-- قوالب ديناميكية (Templates) للإضافة -->
+    <!-- Templates -->
     <template id="exp-form-template">
         <div class="dynamic-item">
-            <button type="button" class="btn-remove" onclick="this.parentElement.remove(); updatePreview();" title="حذف"><i class="fa-solid fa-trash"></i></button>
+            <button type="button" class="btn-remove" onclick="this.parentElement.remove(); updatePreview();"><i class="fa-solid fa-xmark"></i></button>
             <div class="input-group">
-                <input type="text" class="exp-title" placeholder="المسمى الوظيفي (مثال: مدير تسويق)" oninput="updatePreview()">
+                <input type="text" class="exp-title" data-i18n-placeholder="exp_title_pl" oninput="updatePreview()">
             </div>
             <div class="input-group">
-                <input type="text" class="exp-company" placeholder="جهة العمل" oninput="updatePreview()">
-            </div>
-            <div class="input-group-row">
-                <div class="input-group">
-                    <input type="text" class="exp-date" placeholder="الفترة (مثال: 2020 - 2023)" oninput="updatePreview()">
-                </div>
+                <input type="text" class="exp-company" data-i18n-placeholder="exp_company_pl" oninput="updatePreview()">
             </div>
             <div class="input-group">
-                <textarea class="exp-desc" rows="3" placeholder="أبرز الإنجازات والمهام التي قمت بها..." oninput="updatePreview()"></textarea>
+                <input type="text" class="exp-date" data-i18n-placeholder="exp_date_pl" oninput="updatePreview()">
+            </div>
+            <div class="input-group">
+                <textarea class="exp-desc" rows="3" data-i18n-placeholder="exp_desc_pl" oninput="updatePreview()"></textarea>
             </div>
         </div>
     </template>
 
     <template id="edu-form-template">
         <div class="dynamic-item">
-            <button type="button" class="btn-remove" onclick="this.parentElement.remove(); updatePreview();" title="حذف"><i class="fa-solid fa-trash"></i></button>
+            <button type="button" class="btn-remove" onclick="this.parentElement.remove(); updatePreview();"><i class="fa-solid fa-xmark"></i></button>
             <div class="input-group">
-                <input type="text" class="edu-degree" placeholder="الدرجة العلمية (مثال: بكالوريوس إدارة أعمال)" oninput="updatePreview()">
+                <input type="text" class="edu-degree" data-i18n-placeholder="edu_degree_pl" oninput="updatePreview()">
             </div>
             <div class="input-group">
-                <input type="text" class="edu-school" placeholder="المؤسسة التعليمية / الجامعة" oninput="updatePreview()">
+                <input type="text" class="edu-school" data-i18n-placeholder="edu_school_pl" oninput="updatePreview()">
             </div>
             <div class="input-group">
-                <input type="text" class="edu-date" placeholder="سنة التخرج (مثال: 2019)" oninput="updatePreview()">
+                <input type="text" class="edu-date" data-i18n-placeholder="edu_date_pl" oninput="updatePreview()">
             </div>
         </div>
     </template>

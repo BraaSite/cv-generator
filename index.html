@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق السيرة الذاتية الاحترافي</title>
+    <meta name="description" content="قم بإنشاء سيرتك الذاتية الاحترافية بسهولة وسرعة">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- قسم المحرر وإدخال البيانات -->
+        <aside class="editor-section hidden-print">
+            <div class="editor-header">
+                <h1><i class="fa-solid fa-file-signature"></i> صانع السيرة الذاتية</h1>
+                <p>قم بتحديث بياناتك لتشاهد التغييرات فوراً!</p>
+            </div>
+            
+            <form id="cv-form">
+                <!-- المعلومات الشخصية -->
+                <div class="form-section">
+                    <h2><i class="fa-solid fa-user"></i> المعلومات الشخصية</h2>
+                    <div class="input-group">
+                        <label for="fullName">الاسم الكامل</label>
+                        <input type="text" id="fullName" placeholder="مثال: أحمد عبد الرحمن" data-target="cv-name">
+                    </div>
+                    <div class="input-group">
+                        <label for="jobTitle">المسمى الوظيفي</label>
+                        <input type="text" id="jobTitle" placeholder="مثال: مهندس برمجيات أول" data-target="cv-title">
+                    </div>
+                    <div class="input-group-row">
+                        <div class="input-group">
+                            <label for="email">البريد الإلكتروني</label>
+                            <input type="email" id="email" placeholder="example@email.com" data-target="cv-email">
+                        </div>
+                        <div class="input-group">
+                            <label for="phone">رقم الهاتف</label>
+                            <input type="tel" id="phone" placeholder="05xxxxxxxx" data-target="cv-phone">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="address">العنوان</label>
+                        <input type="text" id="address" placeholder="المدينة، الدولة" data-target="cv-address">
+                    </div>
+                    <div class="input-group">
+                        <label for="summary">نبذة شخصية</label>
+                        <textarea id="summary" rows="4" placeholder="اكتب نبذة مختصرة عنك وعن أهم مهاراتك العملية والهدف المهني..." data-target="cv-summary"></textarea>
+                    </div>
+                </div>
+
+                <!-- الخبرات العملية -->
+                <div class="form-section">
+                    <h2><i class="fa-solid fa-briefcase"></i> الخبرات العملية</h2>
+                    <div id="experience-container"></div>
+                    <button type="button" class="btn-add" onclick="addExperience()">
+                        <i class="fa-solid fa-plus"></i> إضافة خبرة جديدة
+                    </button>
+                </div>
+
+                <!-- التعليم الأكاديمي -->
+                <div class="form-section">
+                    <h2><i class="fa-solid fa-graduation-cap"></i> التعليم</h2>
+                    <div id="education-container"></div>
+                    <button type="button" class="btn-add" onclick="addEducation()">
+                        <i class="fa-solid fa-plus"></i> إضافة تعليم جديد
+                    </button>
+                </div>
+
+                <!-- المهارات -->
+                <div class="form-section">
+                    <h2><i class="fa-solid fa-star"></i> المهارات</h2>
+                    <div class="input-group">
+                        <label for="skills">ادخل مهاراتك مفصولة بفاصلة (,)</label>
+                        <input type="text" id="skills" placeholder="تطوير الويب، إدارة المشاريع، حل المشكلات..." oninput="updateSkills(this.value)">
+                    </div>
+                </div>
+            </form>
+
+            <div class="editor-actions">
+                <button class="btn-primary" onclick="window.print()">
+                    <i class="fa-solid fa-print"></i> حفظ بصيغة PDF
+                </button>
+            </div>
+        </aside>
+
+        <!-- قسم معاينة السيرة الذاتية (A4) -->
+        <main class="preview-section">
+            <div class="cv-page" id="cv-page">
+                <header class="cv-header">
+                    <div class="cv-header-content">
+                        <h1 id="cv-name" class="empty-text">الاسم الكامل</h1>
+                        <h2 id="cv-title" class="empty-text">المسمى الوظيفي</h2>
+                        <p id="cv-summary" class="empty-text">نبذة شخصية عنك تبرز أهم مهاراتك وخبراتك المهنية والهدف الذي تسعى لتحقيقه.</p>
+                    </div>
+                    <div class="cv-contact">
+                        <div>
+                            <i class="fa-solid fa-envelope"></i>
+                            <span id="cv-email">البريد الإلكتروني</span>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-phone"></i>
+                            <span id="cv-phone">رقم الهاتف</span>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span id="cv-address">العنوان</span>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="cv-body">
+                    <div class="cv-main">
+                        <section class="cv-section">
+                            <h3 class="cv-section-title"><i class="fa-solid fa-briefcase"></i> الخبرات العملية</h3>
+                            <div class="cv-items" id="cv-experience-list">
+                                <div class="placeholder-text">أضف خبراتك العملية من القائمة الجانبية...</div>
+                            </div>
+                        </section>
+
+                        <section class="cv-section">
+                            <h3 class="cv-section-title"><i class="fa-solid fa-graduation-cap"></i> التعليم</h3>
+                            <div class="cv-items" id="cv-education-list">
+                                <div class="placeholder-text">أضف مؤهلاتك العلمية من القائمة الجانبية...</div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <div class="cv-sidebar">
+                        <section class="cv-section">
+                            <h3 class="cv-section-title"><i class="fa-solid fa-star"></i> المهارات</h3>
+                            <div class="cv-skills" id="cv-skills-list">
+                                <div class="placeholder-text">أضف مهاراتك...</div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- قوالب ديناميكية (Templates) للإضافة -->
+    <template id="exp-form-template">
+        <div class="dynamic-item">
+            <button type="button" class="btn-remove" onclick="this.parentElement.remove(); updatePreview();" title="حذف"><i class="fa-solid fa-trash"></i></button>
+            <div class="input-group">
+                <input type="text" class="exp-title" placeholder="المسمى الوظيفي (مثال: مدير تسويق)" oninput="updatePreview()">
+            </div>
+            <div class="input-group">
+                <input type="text" class="exp-company" placeholder="جهة العمل" oninput="updatePreview()">
+            </div>
+            <div class="input-group-row">
+                <div class="input-group">
+                    <input type="text" class="exp-date" placeholder="الفترة (مثال: 2020 - 2023)" oninput="updatePreview()">
+                </div>
+            </div>
+            <div class="input-group">
+                <textarea class="exp-desc" rows="3" placeholder="أبرز الإنجازات والمهام التي قمت بها..." oninput="updatePreview()"></textarea>
+            </div>
+        </div>
+    </template>
+
+    <template id="edu-form-template">
+        <div class="dynamic-item">
+            <button type="button" class="btn-remove" onclick="this.parentElement.remove(); updatePreview();" title="حذف"><i class="fa-solid fa-trash"></i></button>
+            <div class="input-group">
+                <input type="text" class="edu-degree" placeholder="الدرجة العلمية (مثال: بكالوريوس إدارة أعمال)" oninput="updatePreview()">
+            </div>
+            <div class="input-group">
+                <input type="text" class="edu-school" placeholder="المؤسسة التعليمية / الجامعة" oninput="updatePreview()">
+            </div>
+            <div class="input-group">
+                <input type="text" class="edu-date" placeholder="سنة التخرج (مثال: 2019)" oninput="updatePreview()">
+            </div>
+        </div>
+    </template>
+
+    <script src="script.js"></script>
+</body>
+</html>
